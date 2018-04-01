@@ -54,12 +54,28 @@ app.get('/about', (req, res) => {
   });
 });
 
-app.get('/bad', (req, res) => {
-  res.status(404);
-  res.send({
-    errorMessage: 'Bad boy'
+app.get('/projects', (req, res) => {
+  let request = require('request');
+  var options = {
+    url: 'https://api.github.com/users/vincentsordo/repos/',
+    headers: {
+      'User-Agent': 'https://api.github.com/users/vincentsordo',
+      'Accept': 'application/vnd.github.v3+json'
+    }
+  };
+  function callback(error, response, body) {
+      return JSON.parse(body);
+  };
+  let body = request(options, callback);
+  console.log('Body', JSON.stringify(body));
+  res.render('projects.hbs', {
+    pageTitle: 'Projects Page',
+    welcomeMessage: 'Welcome to my projects',
+    gitProjects: body
   });
 });
+
+
 app.listen(port, () => {
   console.log(`Server is up on port ${port}`);
 });
