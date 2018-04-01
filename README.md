@@ -1,6 +1,2 @@
-<<<<<<< HEAD
 # ExpressApp
-=======
-# ExpressApp
-
->>>>>>> Initial commit
+Express App example
